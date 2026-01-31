@@ -1,1 +1,3 @@
-# Rosalind-Gen2
+# Rosalind
+
+Various solutions to [Rosalind](https://rosalind.info/).
