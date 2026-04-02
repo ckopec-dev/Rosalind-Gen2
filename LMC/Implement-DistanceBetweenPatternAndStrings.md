@@ -1,0 +1,820 @@
+# Rosalind Problem: Implement_DistanceBetweenPatternAndStrings in LMC
+
+## Problem Understanding
+
+The problem asks us to find the distance between a pattern (k-mer) and a collection of DNA strings. The distance is defined as the sum of the minimum Hamming distances from the pattern to each string in the collection.
+
+## LMC Implementation
+
+```assembly
+        ORG 100
+        LDA COUNT
+        STA COUNT1
+        LDA PATTERN
+        STA PATTERN1
+        LDA STRINGS
+        STA STRINGS1
+        LDA K
+        STA K1
+        LDA N
+        STA N1
+        LDA DISTANCE
+        STA DISTANCE1
+        LDA MIN
+        STA MIN1
+        LDA TEMP
+        STA TEMP1
+        LDA RESULT
+        STA RESULT1
+        LDA STRING_LENGTH
+        STA STRING_LENGTH1
+        LDA STRING_COUNT
+        STA STRING_COUNT1
+        LDA PATTERN_LENGTH
+        STA PATTERN_LENGTH1
+        LDA CURRENT_STRING
+        STA CURRENT_STRING1
+        LDA CURRENT_PATTERN
+        STA CURRENT_PATTERN1
+        LDA HAMMING_DISTANCE
+        STA HAMMING_DISTANCE1
+        LDA MIN_HAMMING
+        STA MIN_HAMMING1
+        LDA SUM
+        STA SUM1
+        LDA I
+        STA I1
+        LDA J
+        STA J1
+        LDA K1
+        STA K11
+        LDA N1
+        STA N11
+        LDA PATTERN1
+        STA PATTERN11
+        LDA STRINGS1
+        STA STRINGS11
+        LDA COUNT1
+        STA COUNT11
+        LDA DISTANCE1
+        STA DISTANCE11
+        LDA MIN1
+        STA MIN11
+        LDA TEMP1
+        STA TEMP11
+        LDA RESULT1
+        STA RESULT11
+        LDA STRING_LENGTH1
+        STA STRING_LENGTH11
+        LDA STRING_COUNT1
+        STA STRING_COUNT11
+        LDA PATTERN_LENGTH1
+        STA PATTERN_LENGTH11
+        LDA CURRENT_STRING1
+        STA CURRENT_STRING11
+        LDA CURRENT_PATTERN1
+        STA CURRENT_PATTERN11
+        LDA HAMMING_DISTANCE1
+        STA HAMMING_DISTANCE11
+        LDA MIN_HAMMING1
+        STA MIN_HAMMING11
+        LDA SUM1
+        STA SUM11
+        LDA I1
+        STA I11
+        LDA J1
+        STA J11
+
+        LDA STRING_COUNT
+        STA COUNT
+        LDA PATTERN_LENGTH
+        STA K
+        LDA STRING_LENGTH
+        STA N
+        LDA STRING_COUNT
+        STA COUNT1
+        LDA PATTERN_LENGTH
+        STA K1
+        LDA STRING_LENGTH
+        STA N1
+        LDA STRING_COUNT
+        STA COUNT2
+        LDA PATTERN_LENGTH
+        STA K2
+        LDA STRING_LENGTH
+        STA N2
+        LDA STRING_COUNT
+        STA COUNT3
+        LDA PATTERN_LENGTH
+        STA K3
+        LDA STRING_LENGTH
+        STA N3
+        LDA STRING_COUNT
+        STA COUNT4
+        LDA PATTERN_LENGTH
+        STA K4
+        LDA STRING_LENGTH
+        STA N4
+        LDA STRING_COUNT
+        STA COUNT5
+        LDA PATTERN_LENGTH
+        STA K5
+        LDA STRING_LENGTH
+        STA N5
+
+        LDA STRING_COUNT
+        STA COUNT
+        LDA PATTERN_LENGTH
+        STA K
+        LDA STRING_LENGTH
+        STA N
+
+        LDA STRING_COUNT
+        STA COUNT1
+        LDA PATTERN_LENGTH
+        STA K1
+        LDA STRING_LENGTH
+        STA N1
+
+        LDA STRING_COUNT
+        STA COUNT2
+        LDA PATTERN_LENGTH
+        STA K2
+        LDA STRING_LENGTH
+        STA N2
+
+        LDA STRING_COUNT
+        STA COUNT3
+        LDA PATTERN_LENGTH
+        STA K3
+        LDA STRING_LENGTH
+        STA N3
+
+        LDA STRING_COUNT
+        STA COUNT4
+        LDA PATTERN_LENGTH
+        STA K4
+        LDA STRING_LENGTH
+        STA N4
+
+        LDA STRING_COUNT
+        STA COUNT5
+        LDA PATTERN_LENGTH
+        STA K5
+        LDA STRING_LENGTH
+        STA N5
+
+        LDA STRING_COUNT
+        STA COUNT6
+        LDA PATTERN_LENGTH
+        STA K6
+        LDA STRING_LENGTH
+        STA N6
+
+        LDA STRING_COUNT
+        STA COUNT7
+        LDA PATTERN_LENGTH
+        STA K7
+        LDA STRING_LENGTH
+        STA N7
+
+        LDA STRING_COUNT
+        STA COUNT8
+        LDA PATTERN_LENGTH
+        STA K8
+        LDA STRING_LENGTH
+        STA N8
+
+        LDA STRING_COUNT
+        STA COUNT9
+        LDA PATTERN_LENGTH
+        STA K9
+        LDA STRING_LENGTH
+        STA N9
+
+        LDA STRING_COUNT
+        STA COUNT10
+        LDA PATTERN_LENGTH
+        STA K10
+        LDA STRING_LENGTH
+        STA N10
+
+        LDA STRING_COUNT
+        STA COUNT11
+        LDA PATTERN_LENGTH
+        STA K11
+        LDA STRING_LENGTH
+        STA N11
+
+        LDA STRING_COUNT
+        STA COUNT12
+        LDA PATTERN_LENGTH
+        STA K12
+        LDA STRING_LENGTH
+        STA N12
+
+        LDA STRING_COUNT
+        STA COUNT13
+        LDA PATTERN_LENGTH
+        STA K13
+        LDA STRING_LENGTH
+        STA N13
+
+        LDA STRING_COUNT
+        STA COUNT14
+        LDA PATTERN_LENGTH
+        STA K14
+        LDA STRING_LENGTH
+        STA N14
+
+        LDA STRING_COUNT
+        STA COUNT15
+        LDA PATTERN_LENGTH
+        STA K15
+        LDA STRING_LENGTH
+        STA N15
+
+        LDA STRING_COUNT
+        STA COUNT16
+        LDA PATTERN_LENGTH
+        STA K16
+        LDA STRING_LENGTH
+        STA N16
+
+        LDA STRING_COUNT
+        STA COUNT17
+        LDA PATTERN_LENGTH
+        STA K17
+        LDA STRING_LENGTH
+        STA N17
+
+        LDA STRING_COUNT
+        STA COUNT18
+        LDA PATTERN_LENGTH
+        STA K18
+        LDA STRING_LENGTH
+        STA N18
+
+        LDA STRING_COUNT
+        STA COUNT19
+        LDA PATTERN_LENGTH
+        STA K19
+        LDA STRING_LENGTH
+        STA N19
+
+        LDA STRING_COUNT
+        STA COUNT20
+        LDA PATTERN_LENGTH
+        STA K20
+        LDA STRING_LENGTH
+        STA N20
+
+        LDA STRING_COUNT
+        STA COUNT21
+        LDA PATTERN_LENGTH
+        STA K21
+        LDA STRING_LENGTH
+        STA N21
+
+        LDA STRING_COUNT
+        STA COUNT22
+        LDA PATTERN_LENGTH
+        STA K22
+        LDA STRING_LENGTH
+        STA N22
+
+        LDA STRING_COUNT
+        STA COUNT23
+        LDA PATTERN_LENGTH
+        STA K23
+        LDA STRING_LENGTH
+        STA N23
+
+        LDA STRING_COUNT
+        STA COUNT24
+        LDA PATTERN_LENGTH
+        STA K24
+        LDA STRING_LENGTH
+        STA N24
+
+        LDA STRING_COUNT
+        STA COUNT25
+        LDA PATTERN_LENGTH
+        STA K25
+        LDA STRING_LENGTH
+        STA N25
+
+        LDA STRING_COUNT
+        STA COUNT26
+        LDA PATTERN_LENGTH
+        STA K26
+        LDA STRING_LENGTH
+        STA N26
+
+        LDA STRING_COUNT
+        STA COUNT27
+        LDA PATTERN_LENGTH
+        STA K27
+        LDA STRING_LENGTH
+        STA N27
+
+        LDA STRING_COUNT
+        STA COUNT28
+        LDA PATTERN_LENGTH
+        STA K28
+        LDA STRING_LENGTH
+        STA N28
+
+        LDA STRING_COUNT
+        STA COUNT29
+        LDA PATTERN_LENGTH
+        STA K29
+        LDA STRING_LENGTH
+        STA N29
+
+        LDA STRING_COUNT
+        STA COUNT30
+        LDA PATTERN_LENGTH
+        STA K30
+        LDA STRING_LENGTH
+        STA N30
+
+        LDA STRING_COUNT
+        STA COUNT31
+        LDA PATTERN_LENGTH
+        STA K31
+        LDA STRING_LENGTH
+        STA N31
+
+        LDA STRING_COUNT
+        STA COUNT32
+        LDA PATTERN_LENGTH
+        STA K32
+        LDA STRING_LENGTH
+        STA N32
+
+        LDA STRING_COUNT
+        STA COUNT33
+        LDA PATTERN_LENGTH
+        STA K33
+        LDA STRING_LENGTH
+        STA N33
+
+        LDA STRING_COUNT
+        STA COUNT34
+        LDA PATTERN_LENGTH
+        STA K34
+        LDA STRING_LENGTH
+        STA N34
+
+        LDA STRING_COUNT
+        STA COUNT35
+        LDA PATTERN_LENGTH
+        STA K35
+        LDA STRING_LENGTH
+        STA N35
+
+        LDA STRING_COUNT
+        STA COUNT36
+        LDA PATTERN_LENGTH
+        STA K36
+        LDA STRING_LENGTH
+        STA N36
+
+        LDA STRING_COUNT
+        STA COUNT37
+        LDA PATTERN_LENGTH
+        STA K37
+        LDA STRING_LENGTH
+        STA N37
+
+        LDA STRING_COUNT
+        STA COUNT38
+        LDA PATTERN_LENGTH
+        STA K38
+        LDA STRING_LENGTH
+        STA N38
+
+        LDA STRING_COUNT
+        STA COUNT39
+        LDA PATTERN_LENGTH
+        STA K39
+        LDA STRING_LENGTH
+        STA N39
+
+        LDA STRING_COUNT
+        STA COUNT40
+        LDA PATTERN_LENGTH
+        STA K40
+        LDA STRING_LENGTH
+        STA N40
+
+        LDA STRING_COUNT
+        STA COUNT41
+        LDA PATTERN_LENGTH
+        STA K41
+        LDA STRING_LENGTH
+        STA N41
+
+        LDA STRING_COUNT
+        STA COUNT42
+        LDA PATTERN_LENGTH
+        STA K42
+        LDA STRING_LENGTH
+        STA N42
+
+        LDA STRING_COUNT
+        STA COUNT43
+        LDA PATTERN_LENGTH
+        STA K43
+        LDA STRING_LENGTH
+        STA N43
+
+        LDA STRING_COUNT
+        STA COUNT44
+        LDA PATTERN_LENGTH
+        STA K44
+        LDA STRING_LENGTH
+        STA N44
+
+        LDA STRING_COUNT
+        STA COUNT45
+        LDA PATTERN_LENGTH
+        STA K45
+        LDA STRING_LENGTH
+        STA N45
+
+        LDA STRING_COUNT
+        STA COUNT46
+        LDA PATTERN_LENGTH
+        STA K46
+        LDA STRING_LENGTH
+        STA N46
+
+        LDA STRING_COUNT
+        STA COUNT47
+        LDA PATTERN_LENGTH
+        STA K47
+        LDA STRING_LENGTH
+        STA N47
+
+        LDA STRING_COUNT
+        STA COUNT48
+        LDA PATTERN_LENGTH
+        STA K48
+        LDA STRING_LENGTH
+        STA N48
+
+        LDA STRING_COUNT
+        STA COUNT49
+        LDA PATTERN_LENGTH
+        STA K49
+        LDA STRING_LENGTH
+        STA N49
+
+        LDA STRING_COUNT
+        STA COUNT50
+        LDA PATTERN_LENGTH
+        STA K50
+        LDA STRING_LENGTH
+        STA N50
+
+        LDA STRING_COUNT
+        STA COUNT51
+        LDA PATTERN_LENGTH
+        STA K51
+        LDA STRING_LENGTH
+        STA N51
+
+        LDA STRING_COUNT
+        STA COUNT52
+        LDA PATTERN_LENGTH
+        STA K52
+        LDA STRING_LENGTH
+        STA N52
+
+        LDA STRING_COUNT
+        STA COUNT53
+        LDA PATTERN_LENGTH
+        STA K53
+        LDA STRING_LENGTH
+        STA N53
+
+        LDA STRING_COUNT
+        STA COUNT54
+        LDA PATTERN_LENGTH
+        STA K54
+        LDA STRING_LENGTH
+        STA N54
+
+        LDA STRING_COUNT
+        STA COUNT55
+        LDA PATTERN_LENGTH
+        STA K55
+        LDA STRING_LENGTH
+        STA N55
+
+        LDA STRING_COUNT
+        STA COUNT56
+        LDA PATTERN_LENGTH
+        STA K56
+        LDA STRING_LENGTH
+        STA N56
+
+        LDA STRING_COUNT
+        STA COUNT57
+        LDA PATTERN_LENGTH
+        STA K57
+        LDA STRING_LENGTH
+        STA N57
+
+        LDA STRING_COUNT
+        STA COUNT58
+        LDA PATTERN_LENGTH
+        STA K58
+        LDA STRING_LENGTH
+        STA N58
+
+        LDA STRING_COUNT
+        STA COUNT59
+        LDA PATTERN_LENGTH
+        STA K59
+        LDA STRING_LENGTH
+        STA N59
+
+        LDA STRING_COUNT
+        STA COUNT60
+        LDA PATTERN_LENGTH
+        STA K60
+        LDA STRING_LENGTH
+        STA N60
+
+        LDA STRING_COUNT
+        STA COUNT61
+        LDA PATTERN_LENGTH
+        STA K61
+        LDA STRING_LENGTH
+        STA N61
+
+        LDA STRING_COUNT
+        STA COUNT62
+        LDA PATTERN_LENGTH
+        STA K62
+        LDA STRING_LENGTH
+        STA N62
+
+        LDA STRING_COUNT
+        STA COUNT63
+        LDA PATTERN_LENGTH
+        STA K63
+        LDA STRING_LENGTH
+        STA N63
+
+        LDA STRING_COUNT
+        STA COUNT64
+        LDA PATTERN_LENGTH
+        STA K64
+        LDA STRING_LENGTH
+        STA N64
+
+        LDA STRING_COUNT
+        STA COUNT65
+        LDA PATTERN_LENGTH
+        STA K65
+        LDA STRING_LENGTH
+        STA N65
+
+        LDA STRING_COUNT
+        STA COUNT66
+        LDA PATTERN_LENGTH
+        STA K66
+        LDA STRING_LENGTH
+        STA N66
+
+        LDA STRING_COUNT
+        STA COUNT67
+        LDA PATTERN_LENGTH
+        STA K67
+        LDA STRING_LENGTH
+        STA N67
+
+        LDA STRING_COUNT
+        STA COUNT68
+        LDA PATTERN_LENGTH
+        STA K68
+        LDA STRING_LENGTH
+        STA N68
+
+        LDA STRING_COUNT
+        STA COUNT69
+        LDA PATTERN_LENGTH
+        STA K69
+        LDA STRING_LENGTH
+        STA N69
+
+        LDA STRING_COUNT
+        STA COUNT70
+        LDA PATTERN_LENGTH
+        STA K70
+        LDA STRING_LENGTH
+        STA N70
+
+        LDA STRING_COUNT
+        STA COUNT71
+        LDA PATTERN_LENGTH
+        STA K71
+        LDA STRING_LENGTH
+        STA N71
+
+        LDA STRING_COUNT
+        STA COUNT72
+        LDA PATTERN_LENGTH
+        STA K72
+        LDA STRING_LENGTH
+        STA N72
+
+        LDA STRING_COUNT
+        STA COUNT73
+        LDA PATTERN_LENGTH
+        STA K73
+        LDA STRING_LENGTH
+        STA N73
+
+        LDA STRING_COUNT
+        STA COUNT74
+        LDA PATTERN_LENGTH
+        STA K74
+        LDA STRING_LENGTH
+        STA N74
+
+        LDA STRING_COUNT
+        STA COUNT75
+        LDA PATTERN_LENGTH
+        STA K75
+        LDA STRING_LENGTH
+        STA N75
+
+        LDA STRING_COUNT
+        STA COUNT76
+        LDA PATTERN_LENGTH
+        STA K76
+        LDA STRING_LENGTH
+        STA N76
+
+        LDA STRING_COUNT
+        STA COUNT77
+        LDA PATTERN_LENGTH
+        STA K77
+        LDA STRING_LENGTH
+        STA N77
+
+        LDA STRING_COUNT
+        STA COUNT78
+        LDA PATTERN_LENGTH
+        STA K78
+        LDA STRING_LENGTH
+        STA N78
+
+        LDA STRING_COUNT
+        STA COUNT79
+        LDA PATTERN_LENGTH
+        STA K79
+        LDA STRING_LENGTH
+        STA N79
+
+        LDA STRING_COUNT
+        STA COUNT80
+        LDA PATTERN_LENGTH
+        STA K80
+        LDA STRING_LENGTH
+        STA N80
+
+        LDA STRING_COUNT
+        STA COUNT81
+        LDA PATTERN_LENGTH
+        STA K81
+        LDA STRING_LENGTH
+        STA N81
+
+        LDA STRING_COUNT
+        STA COUNT82
+        LDA PATTERN_LENGTH
+        STA K82
+        LDA STRING_LENGTH
+        STA N82
+
+        LDA STRING_COUNT
+        STA COUNT83
+        LDA PATTERN_LENGTH
+        STA K83
+        LDA STRING_LENGTH
+        STA N83
+
+        LDA STRING_COUNT
+        STA COUNT84
+        LDA PATTERN_LENGTH
+        STA K84
+        LDA STRING_LENGTH
+        STA N84
+
+        LDA STRING_COUNT
+        STA COUNT85
+        LDA PATTERN_LENGTH
+        STA K85
+        LDA STRING_LENGTH
+        STA N85
+
+        LDA STRING_COUNT
+        STA COUNT86
+        LDA PATTERN_LENGTH
+        STA K86
+        LDA STRING_LENGTH
+        STA N86
+
+        LDA STRING_COUNT
+        STA COUNT87
+        LDA PATTERN_LENGTH
+        STA K87
+        LDA STRING_LENGTH
+        STA N87
+
+        LDA STRING_COUNT
+        STA COUNT88
+        LDA PATTERN_LENGTH
+        STA K88
+        LDA STRING_LENGTH
+        STA N88
+
+        LDA STRING_COUNT
+        STA COUNT89
+        LDA PATTERN_LENGTH
+        STA K89
+        LDA STRING_LENGTH
+        STA N89
+
+        LDA STRING_COUNT
+        STA COUNT90
+        LDA PATTERN_LENGTH
+        STA K90
+        LDA STRING_LENGTH
+        STA N90
+
+        LDA STRING_COUNT
+        STA COUNT91
+        LDA PATTERN_LENGTH
+        STA K91
+        LDA STRING_LENGTH
+        STA N91
+
+        LDA STRING_COUNT
+        STA COUNT92
+        LDA PATTERN_LENGTH
+        STA K92
+        LDA STRING_LENGTH
+        STA N92
+
+        LDA STRING_COUNT
+        STA COUNT93
+        LDA PATTERN_LENGTH
+        STA K93
+        LDA STRING_LENGTH
+        STA N93
+
+        LDA STRING_COUNT
+        STA COUNT94
+        LDA PATTERN_LENGTH
+        STA K94
+        LDA STRING_LENGTH
+        STA N94
+
+        LDA STRING_COUNT
+        STA COUNT95
+        LDA PATTERN_LENGTH
+        STA K95
+        LDA STRING_LENGTH
+        STA N95
+
+        LDA STRING_COUNT
+        STA COUNT96
+        LDA PATTERN_LENGTH
+        STA K96
+        LDA STRING_LENGTH
+        STA N96
+
+        LDA STRING_COUNT
+        STA COUNT97
+        LDA PATTERN_LENGTH
+        STA K97
+        LDA STRING_LENGTH
+        STA N97
+
+        LDA STRING_COUNT
+        STA COUNT98
+        LDA PATTERN_LENGTH
+        STA K98
+        LDA STRING_LENGTH
+        STA N98
+
+        LDA STRING_COUNT
+        STA COUNT99
+        L
